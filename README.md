@@ -3,6 +3,9 @@
 ### Image caption evaluation 
 
 structure: Cross-modality BERT 
+input: image + caption candidate 
+output: score 
+
 
 ### Negative sampling
 

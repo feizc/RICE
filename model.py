@@ -18,15 +18,28 @@ class RICE(BertPreTrainedModel):
         self.image_inverse_ff = nn.Linear(config.hidden_size, 2048)
         
         self.init_weights() 
+        self.tie_weights()
+
+    def tie_weights(self):
+        self._tie_or_clone_weights(self.rec_linear, self.bert.embeddings.word_embeddings)
     
-    def forward(self, input_embs, token_type_ids=None, labels=None, reconstruct_target=None):
+    def forward(self, input_embs, token_type_ids=None, target_caps=None, labels=None, reconstruct_target=None):
         outputs = self.bert(
             inputs_embeds=input_embs,
             token_type_ids=token_type_ids,
         )
         pooled_output = outputs[1]
         pooled_output = self.dropout(pooled_output)
-        logits = self.classifier(pooled_output)
+        logits = self.classifier(pooled_output) 
+
+        # classification loss 
+        if labels is not None: 
+            cross_loss_fct = CrossEntropyLoss()
+            loss = cross_loss_fct(logits, labels) 
+            return loss 
+        
+        # reconstruction loss 
+
         return logits 
 
 

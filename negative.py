@@ -3,6 +3,14 @@ import os
 import random 
 
 
+'''
+dataset structure:
+1. input 
+2. caption: correct image caption 
+3. label: 0 or 1 
+'''
+
+
 def sentence_combine(caption_list):
     caption = ''
     for word in caption_list:
@@ -16,7 +24,7 @@ def repetition(caption_dict):
     repetition_position = random.randint(1,len(caption)-1) 
     caption[repetition_position] = caption[repetition_position-1] 
     caption = sentence_combine(caption)
-    caption_dict['repetition'] = caption 
+    caption_dict['input'] = caption 
     return caption_dict
 
 
@@ -29,12 +37,13 @@ def negative_create():
         caption = json.load(j)
     caption = caption['annotations']
     train_data = []
-    for i in range(100-1):
+    for i in range(100):
         caption_dict = caption[i]
         if random.random() < 0.5:
             caption_dict = repetition(caption_dict)
             caption_dict['label'] = 0
         else:
+            caption_dict['input'] = caption_dict['caption']
             caption_dict['label'] = 1
         train_data.append(caption_dict)
     print(train_data)
