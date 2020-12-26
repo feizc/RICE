@@ -6,8 +6,8 @@ structure: Cross-modality BERT
 
 ### Negative sampling
 
-1. repetiton 
+1. Repetiton 
 2. Substitution 
-3. visual attack 
+3. Visual attack 
 
 
