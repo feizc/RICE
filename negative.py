@@ -2,6 +2,7 @@ import json
 import os 
 import random 
 
+
 def sentence_combine(caption_list):
     caption = ''
     for word in caption_list:
@@ -28,7 +29,7 @@ def negative_create():
         caption = json.load(j)
     caption = caption['annotations']
     train_data = []
-    for i in range(10):
+    for i in range(100-1):
         caption_dict = caption[i]
         if random.random() < 0.5:
             caption_dict = repetition(caption_dict)
