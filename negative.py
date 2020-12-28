@@ -4,13 +4,13 @@ import random
 
 
 '''
-dataset structure:
-1. input 
+data structure:
+1. input: cadidates to be score
 2. caption: correct image caption 
-3. label: 0 or 1 
+3. label: 0 or 1  
 '''
 
-
+# change list into one string 
 def sentence_combine(caption_list):
     caption = ''
     for word in caption_list:
@@ -19,6 +19,7 @@ def sentence_combine(caption_list):
     return caption.strip()
 
 
+# random repetion one token for a caption 
 def repetition(caption_dict):
     caption = caption_dict['caption'].split()
     repetition_position = random.randint(1,len(caption)-1) 
@@ -28,7 +29,17 @@ def repetition(caption_dict):
     return caption_dict
 
 
+# subtition one token with antonym
+def substitution(caption_dict):
+    return sentence_combine(caption_dict)
 
+
+# disturbance with vistual attack 
+def disturbance(caption_dict):
+    return sentence_combine(caption_dict)
+
+
+# generate negative samples for metric training 
 def negative_create():
     data_path = 'data'
     annotations = os.path.join(data_path, 'annotations')
