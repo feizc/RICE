@@ -49,10 +49,12 @@ def negative_create():
     caption = caption['annotations']
     train_data = []
     for i in range(100):
-        caption_dict = caption[i]
-        if random.random() < 0.5:
+        caption_dict = caption[i] 
+        decision_number = 
+        if random.random() < 0.2:
             caption_dict = repetition(caption_dict)
-            caption_dict['label'] = 0
+            caption_dict['label'] = 0 
+        
         else:
             caption_dict['input'] = caption_dict['caption']
             caption_dict['label'] = 1
